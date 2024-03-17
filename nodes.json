@@ -1,0 +1,50 @@
+[
+    {
+        "name": "ip-192-168-84-254.ec2.internal",
+        "block_devices": [
+            "blockdevice-2a003f399c043245334dcc2cb0e63013"
+        ]
+    },
+    {
+        "name": "ip-192-168-98-96.ec2.internal",
+        "block_devices": [
+            "blockdevice-3d835b34c3d37392b469f714fcaea2e5"
+        ]
+    },
+    {
+        "name": "ip-192-168-124-127.ec2.internal",
+        "block_devices": [
+            "blockdevice-55564e26f73438dd82ebee558caf297d"
+        ]
+    },
+    {
+        "name": "ip-192-168-122-48.ec2.internal",
+        "block_devices": [
+            "blockdevice-5a875373f8fde34f813031e678bbf40c"
+        ]
+    },
+    {
+        "name": "ip-192-168-74-127.ec2.internal",
+        "block_devices": [
+            "blockdevice-892268a180b4cbbaf77d64771343e94f"
+        ]
+    },
+    {
+        "name": "ip-192-168-94-66.ec2.internal",
+        "block_devices": [
+            "blockdevice-9962f20162d40c909b21f0f278a40007"
+        ]
+    },
+    {
+        "name": "ip-192-168-119-145.ec2.internal",
+        "block_devices": [
+            "blockdevice-b7365ffefcd9cb686c430d0db1dfe612"
+        ]
+    },
+    {
+        "name": "ip-192-168-90-124.ec2.internal",
+        "block_devices": [
+            "blockdevice-d40ba46becf5e290a65cdbe82b6bcb95"
+        ]
+    }
+]
