@@ -69,7 +69,7 @@ nodeGroups:
       - "systemctl restart docker"
     overrideBootstrapCommand: |
       #!/bin/bash
-      /etc/eks/bootstrap.sh sqlscale-cluster
+      /etc/eks/bootstrap.sh sqlscale
   - name: sqlng-2
     instanceType: t2.medium
     instanceName: sqlscale-worker-2
@@ -87,7 +87,7 @@ nodeGroups:
       - "systemctl restart docker"
     overrideBootstrapCommand: |
       #!/bin/bash
-      /etc/eks/bootstrap.sh sqlscale-cluster
+      /etc/eks/bootstrap.sh sqlscale
 ```
 <BR>
 Basically first and 2nd group are the same just they will deploy half in us-east1a and half in us-east1b to achieve redundancy. You can explore and add Multi-AZ in different Area zones and test. More details what else you can add within cluster.yaml file you can read here:
@@ -103,16 +103,7 @@ eksctl create cluster -f cluster.yaml
 
 ** Before executing make sure you are good with ~/.aws/credentials and ~/.aws/config so you are using correct API keys. <BR>
 <BR>
-Wait for cluster to be deployed, if it AWS EKS cluster is ready and you get the following error:
-<BR>
-
-```
-Error: timed out waiting for at least 4 nodes to join the cluster and become ready in "sqlng-1": context deadline exceeded
-```
-
-<BR>
-That's fine, some bug but overall all services are available including Autoscaling groups. We will address this in the next releases.
-
+Wait for cluster to be deployed.
 <BR>
 
 Next is Terraform part. It starts by adjusting **variables.tf** file with desired values what is the size of the Additional volumes you will attach to each Worker node, and how much initial you wish to have replicas of Storage Class and MariaDB Stateful set deployments. You can adjust default namespaces for OpenEBS and MariaDB itself.
