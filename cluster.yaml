@@ -15,11 +15,30 @@ addons:
   - name: kube-proxy
     version: latest
 
-nodeGroups:
+NodeGroups:
   - name: sqlng-1
     instanceType: t2.medium
     instanceName: sqlscale-worker-1
     desiredCapacity: 4
+    iam:
+      attachPolicyARNs:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        appMesh: true
+        appMeshPreview: true
+        ebs: true
+        fsx: true
+        efs: true
+        awsLoadBalancerController: true
+        xRay: true
+        cloudWatch: true
     volumeSize: 50
     volumeType: gp3
     amiFamily: Ubuntu2204
@@ -27,17 +46,39 @@ nodeGroups:
     ssh:
       allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
     privateNetworking: true
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
     preBootstrapCommands:
       # allow docker registries to be deployed as cluster service
       - "sed '2i \"insecure-registries\": [\"172.20.0.0/16\",\"10.100.0.0/16\"],'  /etc/docker/daemon.json"
       - "systemctl restart docker"
     overrideBootstrapCommand: |
       #!/bin/bash
-      /etc/eks/bootstrap.sh sqlscale-cluster
+      /etc/eks/bootstrap.sh sqlscale
   - name: sqlng-2
     instanceType: t2.medium
     instanceName: sqlscale-worker-2
     desiredCapacity: 4
+    iam:
+      attachPolicyARNs:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess
+      withAddonPolicies:
+        imageBuilder: true
+        autoScaler: true
+        externalDNS: true
+        certManager: true
+        appMesh: true
+        appMeshPreview: true
+        ebs: true
+        fsx: true
+        efs: true
+        awsLoadBalancerController: true
+        xRay: true
+        cloudWatch: true
     volumeSize: 50
     volumeType: gp3
     amiFamily: Ubuntu2204
@@ -45,10 +86,13 @@ nodeGroups:
     ssh:
       allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
     privateNetworking: true
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
     preBootstrapCommands:
       # allow docker registries to be deployed as cluster service
       - "sed '2i \"insecure-registries\": [\"172.20.0.0/16\",\"10.100.0.0/16\"],'  /etc/docker/daemon.json"
       - "systemctl restart docker"
     overrideBootstrapCommand: |
       #!/bin/bash
-      /etc/eks/bootstrap.sh sqlscale-cluster
+      /etc/eks/bootstrap.sh sqlscale
